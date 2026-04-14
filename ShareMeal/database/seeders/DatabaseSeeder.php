@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 $model = User::query()->create([
                     'name' => $user['name'],
                     'email' => $user['email'],
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make($user['password'] ?? 'password'),
                     'role' => $user['type'],
                     'phone' => $user['phone'] ?? null,
                     'status' => $user['status'] ?? 'active',

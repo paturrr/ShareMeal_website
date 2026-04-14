@@ -306,6 +306,10 @@ return [
         ['id' => 5, 'name' => 'Healthy Corner', 'email' => 'healthy.corner@email.com', 'phone' => '021-11223344', 'type' => 'mitra', 'status' => 'active', 'joined_at' => '2026-01-25', 'transactions' => 98, 'warnings' => 0, 'verified' => true],
         ['id' => 6, 'name' => 'Ahmad Rizki', 'email' => 'ahmad@email.com', 'phone' => '08156781234', 'type' => 'consumer', 'status' => 'warned', 'joined_at' => '2026-03-01', 'transactions' => 8, 'warnings' => 2, 'last_warning' => '2026-04-12', 'warning_reason' => 'Tidak mengambil pesanan yang sudah dibooking (2x)'],
         ['id' => 7, 'name' => 'Toko ABC', 'email' => 'toko.abc@email.com', 'phone' => '021-99887766', 'type' => 'mitra', 'status' => 'blocked', 'joined_at' => '2026-02-15', 'transactions' => 32, 'warnings' => 3, 'blocked_at' => '2026-04-13', 'block_reason' => 'Menjual makanan yang sudah tidak layak konsumsi (pelanggaran berat)', 'verified' => true],
+        ['id' => 8, 'name' => 'Ahmad Fathurrohman (Consumer)', 'email' => 'ahmad.fathurrohman26@gmail.com', 'password' => '123123', 'phone' => '081234567890', 'type' => 'consumer', 'status' => 'active', 'joined_at' => '2026-04-14', 'transactions' => 0, 'warnings' => 0],
+        ['id' => 9, 'name' => 'Ahmad Fathurrohman (Mitra)', 'email' => 'ahmad.fathurrohman26@gmail.com', 'password' => '123123', 'phone' => '081234567891', 'type' => 'mitra', 'status' => 'active', 'joined_at' => '2026-04-14', 'transactions' => 0, 'warnings' => 0, 'verified' => true],
+        ['id' => 10, 'name' => 'Ahmad Fathurrohman (Lembaga)', 'email' => 'ahmad.fathurrohman26@gmail.com', 'password' => '123123', 'phone' => '081234567892', 'type' => 'lembaga', 'status' => 'active', 'joined_at' => '2026-04-14', 'transactions' => 0, 'warnings' => 0, 'verified' => true],
+        ['id' => 11, 'name' => 'Ahmad Fathurrohman (Admin)', 'email' => 'ahmad.fathurrohman26@gmail.com', 'password' => '123123', 'phone' => '081234567893', 'type' => 'admin', 'status' => 'active', 'joined_at' => '2026-04-14', 'transactions' => 0, 'warnings' => 0, 'verified' => true],
     ],
     'articles' => [
         [
