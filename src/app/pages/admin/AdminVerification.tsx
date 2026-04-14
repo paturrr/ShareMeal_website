@@ -17,6 +17,7 @@ import {
   Mail,
   MapPin,
   AlertCircle,
+  BookOpen,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -25,6 +26,7 @@ const navigation = [
   { name: "Dashboard", path: "/admin", icon: <LayoutDashboard className="w-5 h-5" /> },
   { name: "Verifikasi", path: "/admin/verification", icon: <Shield className="w-5 h-5" /> },
   { name: "Kelola User", path: "/admin/users", icon: <Users className="w-5 h-5" /> },
+  { name: "Edukasi", path: "/admin/education", icon: <BookOpen className="w-5 h-5" /> },
 ];
 
 export default function AdminVerification() {

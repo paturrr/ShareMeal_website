@@ -8,11 +8,14 @@ import MitraOrders from "./pages/mitra/MitraOrders";
 import ConsumerDashboard from "./pages/consumer/ConsumerDashboard";
 import ConsumerSearch from "./pages/consumer/ConsumerSearch";
 import ConsumerHistory from "./pages/consumer/ConsumerHistory";
+import ConsumerCheckout from "./pages/consumer/ConsumerCheckout";
+import ConsumerEducation from "./pages/consumer/ConsumerEducation";
 import LembagaDashboard from "./pages/lembaga/LembagaDashboard";
 import LembagaDonations from "./pages/lembaga/LembagaDonations";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminVerification from "./pages/admin/AdminVerification";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminEducation from "./pages/admin/AdminEducation";
 import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter([
@@ -51,8 +54,16 @@ export const router = createBrowserRouter([
     Component: ConsumerSearch,
   },
   {
+    path: "/consumer/checkout",
+    Component: ConsumerCheckout,
+  },
+  {
     path: "/consumer/history",
     Component: ConsumerHistory,
+  },
+  {
+    path: "/consumer/education",
+    Component: ConsumerEducation,
   },
   // Lembaga Sosial Routes
   {
@@ -75,6 +86,10 @@ export const router = createBrowserRouter([
   {
     path: "/admin/users",
     Component: AdminUsers,
+  },
+  {
+    path: "/admin/education",
+    Component: AdminEducation,
   },
   {
     path: "*",

@@ -7,6 +7,14 @@ import Icon from "../../imports/Icon";
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,13 +28,25 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
-            <a href="/#eksplorasi" className="text-gray-700 hover:text-green-600 font-medium">
+            <a 
+              href="#eksplorasi" 
+              onClick={(e) => handleSmoothScroll(e, 'eksplorasi')}
+              className="text-gray-700 hover:text-green-600 font-medium"
+            >
               Eksplorasi
             </a>
-            <a href="/#fitur" className="text-gray-700 hover:text-green-600 font-medium">
+            <a 
+              href="#fitur" 
+              onClick={(e) => handleSmoothScroll(e, 'fitur')}
+              className="text-gray-700 hover:text-green-600 font-medium"
+            >
               Fitur
             </a>
-            <a href="/#bergabung" className="text-gray-700 hover:text-green-600 font-medium">
+            <a 
+              href="#bergabung" 
+              onClick={(e) => handleSmoothScroll(e, 'bergabung')}
+              className="text-gray-700 hover:text-green-600 font-medium"
+            >
               Bergabung
             </a>
             
@@ -61,42 +81,48 @@ export function Navbar() {
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col gap-4">
-              <Link
-                to="/consumer/search"
+              <a
+                href="#eksplorasi"
+                onClick={(e) => {
+                  handleSmoothScroll(e, 'eksplorasi');
+                  setMobileMenuOpen(false);
+                }}
                 className="text-gray-700 hover:text-green-600"
-                onClick={() => setMobileMenuOpen(false)}
               >
-                Cari Makanan
-              </Link>
+                Eksplorasi
+              </a>
+              <a
+                href="#fitur"
+                onClick={(e) => {
+                  handleSmoothScroll(e, 'fitur');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-gray-700 hover:text-green-600"
+              >
+                Fitur
+              </a>
+              <a
+                href="#bergabung"
+                onClick={(e) => {
+                  handleSmoothScroll(e, 'bergabung');
+                  setMobileMenuOpen(false);
+                }}
+                className="text-gray-700 hover:text-green-600"
+              >
+                Bergabung
+              </a>
               <Link
                 to="/consumer"
                 className="text-gray-700 hover:text-green-600"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Untuk Konsumen
+                Dashboard
               </Link>
-              <Link
-                to="/mitra"
-                className="text-gray-700 hover:text-green-600"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Untuk Mitra
-              </Link>
-              <Link
-                to="/lembaga"
-                className="text-gray-700 hover:text-green-600"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Untuk Lembaga
-              </Link>
-              <div className="flex flex-col gap-2 pt-2">
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" className="w-full">
-                    Masuk
+              <div className="border-t pt-4">
+                <Link to="/consumer/search" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full">
+                    Cari Makanan
                   </Button>
-                </Link>
-                <Link to="/register" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full">Daftar</Button>
                 </Link>
               </div>
             </div>

@@ -16,6 +16,7 @@ import {
   CheckCircle,
   Clock,
   ShoppingBag,
+  BookOpen,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -25,6 +26,7 @@ const navigation = [
   { name: "Dashboard", path: "/consumer", icon: <LayoutDashboard className="w-5 h-5" /> },
   { name: "Cari Makanan", path: "/consumer/search", icon: <Search className="w-5 h-5" /> },
   { name: "Riwayat", path: "/consumer/history", icon: <HistoryIcon className="w-5 h-5" /> },
+  { name: "Edukasi", path: "/consumer/education", icon: <BookOpen className="w-5 h-5" /> },
 ];
 
 export default function ConsumerHistory() {

@@ -13,16 +13,51 @@ import {
   Star,
   TrendingDown,
   Bell,
+  ShoppingCart,
+  BookOpen,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useApp } from "../../contexts/AppContext";
+import { toast } from "sonner";
 
 const navigation = [
   { name: "Dashboard", path: "/consumer", icon: <LayoutDashboard className="w-5 h-5" /> },
   { name: "Cari Makanan", path: "/consumer/search", icon: <Search className="w-5 h-5" /> },
   { name: "Riwayat", path: "/consumer/history", icon: <History className="w-5 h-5" /> },
+  { name: "Edukasi", path: "/consumer/education", icon: <BookOpen className="w-5 h-5" /> },
 ];
 
 export default function ConsumerDashboard() {
+  const navigate = useNavigate();
+  const { createBookingForCheckout } = useApp();
+
+  const handleBooking = (
+    storeId: number, 
+    storeName: string, 
+    dealId: number, 
+    dealItem: string, 
+    price: number
+  ) => {
+    const bookingId = createBookingForCheckout(storeId, dealId, 1, "Budi Santoso");
+    
+    if (bookingId) {
+      toast.success(
+        `Booking berhasil! ${dealItem} dari ${storeName}`,
+        {
+          description: `Silakan selesaikan pembayaran`,
+          duration: 3000,
+          icon: <ShoppingCart className="w-5 h-5" />,
+        }
+      );
+      // Redirect to checkout
+      navigate(`/consumer/checkout?bookingId=${bookingId}`);
+    } else {
+      toast.error("Booking gagal! Stok tidak tersedia.", {
+        description: "Silakan coba produk lain.",
+      });
+    }
+  };
+
   const stats = {
     savedMeals: 24,
     moneySaved: 350000,
@@ -231,7 +266,7 @@ export default function ConsumerDashboard() {
                           Rp {sale.originalPrice.toLocaleString("id-ID")}
                         </div>
                       </div>
-                      <Button size="sm">
+                      <Button size="sm" onClick={() => handleBooking(1, sale.store, sale.id, sale.item, sale.discountPrice)}>
                         <TrendingDown className="w-4 h-4 mr-1" />
                         Booking
                       </Button>

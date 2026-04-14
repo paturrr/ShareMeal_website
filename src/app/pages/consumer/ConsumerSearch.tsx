@@ -15,8 +15,10 @@ import {
   Heart,
   Navigation,
   ShoppingCart,
+  BookOpen,
 } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { useApp } from "../../contexts/AppContext";
 
@@ -24,10 +26,12 @@ const navigation = [
   { name: "Dashboard", path: "/consumer", icon: <LayoutDashboard className="w-5 h-5" /> },
   { name: "Cari Makanan", path: "/consumer/search", icon: <SearchIcon className="w-5 h-5" /> },
   { name: "Riwayat", path: "/consumer/history", icon: <History className="w-5 h-5" /> },
+  { name: "Edukasi", path: "/consumer/education", icon: <BookOpen className="w-5 h-5" /> },
 ];
 
 export default function ConsumerSearch() {
-  const { stores, addBooking } = useApp();
+  const navigate = useNavigate();
+  const { stores, createBookingForCheckout } = useApp();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -57,17 +61,19 @@ export default function ConsumerSearch() {
   };
 
   const handleBooking = (storeId: number, storeName: string, dealId: number, dealItem: string, price: number) => {
-    const success = addBooking(storeId, dealId, 1, "Budi Santoso");
+    const bookingId = createBookingForCheckout(storeId, dealId, 1, "Budi Santoso");
     
-    if (success) {
+    if (bookingId) {
       toast.success(
         `Booking berhasil! ${dealItem} dari ${storeName}`,
         {
-          description: `Total: Rp ${price.toLocaleString("id-ID")}. Pesanan Anda sudah dikirim ke penjual!`,
-          duration: 5000,
+          description: `Silakan selesaikan pembayaran`,
+          duration: 3000,
           icon: <ShoppingCart className="w-5 h-5" />,
         }
       );
+      // Redirect to checkout
+      navigate(`/consumer/checkout?bookingId=${bookingId}`);
     } else {
       toast.error("Booking gagal! Stok tidak tersedia.", {
         description: "Silakan coba produk lain atau hubungi penjual.",

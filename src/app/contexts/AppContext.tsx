@@ -61,6 +61,12 @@ interface AppContextType {
     quantity: number,
     consumerName: string
   ) => boolean;
+  createBookingForCheckout: (
+    storeId: number,
+    dealId: number,
+    quantity: number,
+    consumerName: string
+  ) => string | null;
   updateOrderStatus: (orderId: string, status: Booking["status"]) => void;
   updateBookingStatus: (bookingId: string, status: Booking["status"]) => void;
   getStoreById: (storeId: number) => Store | undefined;
@@ -239,6 +245,75 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     return true;
   };
 
+  const createBookingForCheckout = (
+    storeId: number,
+    dealId: number,
+    quantity: number = 1,
+    consumerName: string
+  ): string | null => {
+    const store = stores.find((s) => s.id === storeId);
+    if (!store) return null;
+
+    const deal = store.deals.find((d) => d.id === dealId);
+    if (!deal) return null;
+
+    // Check stock availability
+    if (deal.stock < quantity) return null;
+
+    // Update stock
+    setStores((prevStores) =>
+      prevStores.map((s) => {
+        if (s.id === storeId) {
+          return {
+            ...s,
+            deals: s.deals.map((d) => {
+              if (d.id === dealId) {
+                return { ...d, stock: d.stock - quantity };
+              }
+              return d;
+            }),
+          };
+        }
+        return s;
+      })
+    );
+
+    // Create booking ID
+    const bookingId = `BK-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    // Add to bookings (for consumer)
+    const newBooking: Booking = {
+      id: bookingId,
+      bookingDate: new Date(),
+      storeId,
+      storeName: store.name,
+      dealId,
+      dealItem: deal.item,
+      price: deal.discountPrice,
+      quantity,
+      status: "pending",
+      consumerName,
+    };
+    setBookings((prev) => [newBooking, ...prev]);
+
+    // Add to orders (for mitra/seller)
+    const newOrder: Order = {
+      id: bookingId,
+      orderDate: new Date(),
+      storeId,
+      storeName: store.name,
+      dealId,
+      dealItem: deal.item,
+      price: deal.discountPrice,
+      quantity,
+      status: "pending",
+      consumerName,
+    };
+    setOrders((prev) => [newOrder, ...prev]);
+
+    return bookingId;
+  };
+
   const updateOrderStatus = (orderId: string, status: Booking["status"]) => {
     setOrders((prev) =>
       prev.map((order) => (order.id === orderId ? { ...order, status } : order))
@@ -282,6 +357,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         bookings,
         orders,
         addBooking,
+        createBookingForCheckout,
         updateOrderStatus,
         updateBookingStatus,
         getStoreById,
